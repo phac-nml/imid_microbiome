@@ -1,6 +1,6 @@
 # microbiome ML
 
-
+InputS: An OTU count table with taxanomic information for the OTUs and sample information.
 
 microbiome_1stStep.r: data wrangling  <br />
 microbiome_2ndStep.r: data filtering, normalization and machine learning classification  <br />
