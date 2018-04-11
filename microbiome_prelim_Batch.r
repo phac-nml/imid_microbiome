@@ -124,7 +124,7 @@ dev.off()
 
 
 
-### get the cor between replicates (tech and bio)
+### get the cor/BC between replicates (tech and bio)
 jMeltAnnot<-function(sampCor){ ### note metaobj is used in the function
 
 	require(reshape)
@@ -234,16 +234,9 @@ pdf(paste0(resultDir,"Boxplot_","BC","_samples_filtered_normed_OTU_diffSameCate.
 	boxplot(c,d,names=c("sameCategories","diffCategories"),ylab="Bray-Curtis Dissimilarity", main="Before norm")
 dev.off()
 
-### Feature correlations: Caution: http://www.ncbi.nlm.nih.gov/pubmed/23028285
-#cors = correlationTest(metaobj[1:60, ], norm = FALSE, log = T)
-#head(cors)
-
-### unique OTU
-classes = pData(metaobj)[,diseaseid]
-uniqueOTU<-uniqueFeatures(metaobj, classes, nsamples = 10, nreads = 10)
 
 
-#Aggregating counts, personal pref, normed=T, check lit, personal pref is median...
+#Aggregating counts
 metaobjPhylF = aggTax(metaobj, lvl = "Phylum", out = "matrix",norm = T,log = F, aggfun = colSums)
 head(metaobjPhylF[, 1:5])
 metaobjClalF = aggTax(metaobj, lvl = "Class", out = "matrix",norm = T,log = F, aggfun = colSums)
@@ -265,20 +258,12 @@ legend("topright",  legend = levels(cl), col = cols[1:length(levels(cl))], lty= 
 dev.off()
 
 
-sampCorTTmGenus=jMeltAnnot(cor(log2(metaobjGen+1)))
-sampCorFTmGenus=jMeltAnnot(cor(log2(metaobjGenFF+1)))
 
 sampBCTTmGenus=jMeltAnnot(as.matrix(vegdist(t(log2(metaobjGen+1)), method="bray")))
 sampBCFTmGenus=jMeltAnnot(as.matrix(vegdist(t(log2(metaobjGenFF+1)), method="bray")))
 
-jPlotTechRepB4Aft(sampCorTTmGenus,sampCorFTmGenus, distIndex="cor", resultDir, alter="two.sided", feat="Genus")
 jPlotTechRepB4Aft(sampBCTTmGenus,sampBCFTmGenus, distIndex="Bray-Curtis", resultDir, alter="two.sided", feat="Genus")
 
-#require(ggplot2)
-#pdf(paste0(resultDir,"/Density_cor_samples_filtered_normed_Genus.pdf"), width=9)
-#ggplot(sampCorTTmGenus,aes(x=value, fill=patient)) + geom_density(alpha=0.25)+ xlim(0,1)
-#ggplot(sampCorTTmGenus,aes(x=value, fill=sameCategory)) + geom_density(alpha=0.25)+ xlim(0,1)
-#dev.off()
 
 
 pdf(paste0(resultDir,"/Barplot_allSamples_relativeAbundance.pdf"), width=floor(sqrt(ncol(metaobjPhylF))))
@@ -294,13 +279,8 @@ par(mar=c(3,4,2,7))
  legend("topright", inset=c(-0.12,0),rownames(bardat),fill=darkcols[1:nrow(bardat)], xpd=T, cex=0.8, bty = "n")
 dev.off()
 
-### special case examination of Negativicutes
- hist(t(t(bardat)/colSums(bardat)*100)["Negativicutes",], breaks=50, main="Relative abundance of Negativicutes" ,xlab="Relative abundance within each sample")
 
-#### aggregating samples, for the common plot
-sampagg = aggSamp(metaobj, fct = diseaseid, out = "matrix")
 
-### doing my own after agg of class w median
 #### decisions!!! function to summarize to genus and function to summarize samples
 require(robustbase)
 metaobjClalFmed= aggTax(metaobj, lvl = "Class", out = "matrix",norm = T,log = F, aggfun = colMedians)
@@ -312,7 +292,6 @@ jAggSamp<-function(y, xdata, group, fcn=median){
 	apply(xdata[,group==y],1,fcn)
 }
 
-#### confusing, what's the best way. Median isnt good due to zero inflation
 ### current thought and from lit: sum (of OTUs belong to a phylum/class), then mean (of samples) is more robust
 pdf(paste0(resultDir,"/Barplot_categories_relativeAbundance_differentWays_2.pdf"), width=9)
 	udis=sort(unique(pData(metaobj)[,diseaseid]))
@@ -331,7 +310,7 @@ pdf(paste0(resultDir,"/Barplot_categories_relativeAbundance_differentWays_2.pdf"
 dev.off()
 
 
-#### doing MDS myself
+####  MDS 
 jMDS<-function(mydata,cl, titleAdd="", col2use=cbbPalette, save2pdf=F, plot3D=F, dirSaveIn=""){
 	if(dirSaveIn!="") dirSaveIn=paste0(dirSaveIn,"/")
 	mydata=t(mydata)
