@@ -1,6 +1,9 @@
 
-## 16S rRNA gene targeted-amplicon data processing ##
-Input: 16S rRNA sequence data<br />
+## 16S rRNA gene targeted-amplicon data processing [using mothur]##
+Input: paired end sequence data<br />
+
+Jupyter notebook:<br />
+
 Scripts:<br />
  
   * sbatch_make_contigs.sh   <br />
@@ -11,8 +14,8 @@ Scripts:<br />
   * summary.single.sh  <br />
   
 
-## Post-OTU analyses: normalization and machine learning classification##
-Inputs: An OTU count table with taxanomic information for the OTUs and sample information.
+## Post-OTU analyses: normalization and machine learning classification
+Inputs: An OTU count table obtained from above processing with taxanomic information for the OTUs and sample information (e.g. meta-data).
 
 Scripts:<br />
   * microbiome_1stStep.r: data wrangling  <br />
