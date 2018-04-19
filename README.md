@@ -1,5 +1,16 @@
 # microbiome ML
 
+Input: 16S rRNA-seq data<br />
+Scripts:<br />
+  summary.single.sh  <br />
+  sbatch_make_contigs.sh   <br />
+  merge_fasta.sh  <br />
+  groups_20dec2017.sh   <br />
+  make_contigs.sh  <br />
+  analysis_20dec2017.sh  <br />
+  
+<br /><br /><br />
+Post-OTU analyses<br />
 Inputs: An OTU count table with taxanomic information for the OTUs and sample information.
 
 Scripts:<br />
