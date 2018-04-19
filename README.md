@@ -1,13 +1,14 @@
-# microbiome ML
-## 16S rRNA-seq data processing ##
-Input: 16S rRNA-seq data<br />
+
+## 16S rRNA gene targeted-amplicon data processing ##
+Input: 16S rRNA sequence data<br />
 Scripts:<br />
-  * summary.single.sh  <br />
+ 
   * sbatch_make_contigs.sh   <br />
+  * make_contigs.sh  <br />
   * merge_fasta.sh  <br />
   * groups_20dec2017.sh   <br />
-  * make_contigs.sh  <br />
   * analysis_20dec2017.sh  <br />
+  * summary.single.sh  <br />
   
 
 ## Post-OTU analyses: normalization and machine learning classification##
