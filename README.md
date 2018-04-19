@@ -1,8 +1,10 @@
 
-## 16S rRNA gene targeted-amplicon data processing [using mothur]##
+## 16S rRNA gene targeted-amplicon data processing including quality control, clustering, classification (using mothur)
 Input: paired end sequence data<br />
 
 Jupyter notebook:<br />
+
+  * imid_reanalysis_gh.ipynb
 
 Scripts:<br />
  
