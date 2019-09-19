@@ -5,7 +5,7 @@
 ##### run in bulk w Jess_microbiome_prelim_Batch.r
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 	
 
-
+require(reshape)
 require(metagenomeSeq)
 require(ggpubr)
 require(Rcpp)
