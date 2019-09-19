@@ -344,7 +344,7 @@ jMDS<-function(mydata,cl, titleAdd="", col2use=cbbPalette, save2pdf=F, plot3D=F,
 	}
 }
 
-cl = factor(classes)
+#cl = factor(classes)
 save2pdf0=T
 jMDS(mydata= MRcounts(metaobj, norm = F, log = TRUE), cl, titleAdd="normF_logT_OTU", col2use=colorchoice, save2pdf=save2pdf0, dirSaveIn=resultDir)
 jMDS(mydata= MRcounts(metaobj, norm = TRUE, log = TRUE), cl,titleAdd= "normT_logT_OTU", col2use=colorchoice, save2pdf=save2pdf0, dirSaveIn=resultDir)
